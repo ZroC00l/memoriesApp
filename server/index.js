@@ -16,7 +16,7 @@ app.use(cors());
 
 const CONNECTION_URL =
   "mongodb+srv://Thato:Thato123@cluster0.ku883.mongodb.net/?retryWrites=true&w=majority";
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 5000;
 
 await mongoose
   .connect(CONNECTION_URL)
