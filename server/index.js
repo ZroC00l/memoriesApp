@@ -7,12 +7,12 @@ import postRoutes from "./routes/posts.js";
 
 const app = express();
 
-//express middelware to connect to application,set the starting path for routes
-app.use("/posts", postRoutes);
-
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+
+//express middelware to connect to application,set the starting path for routes
+app.use("/posts", postRoutes);
 
 const CONNECTION_URL =
   "mongodb+srv://Thato:Thato123@cluster0.ku883.mongodb.net/?retryWrites=true&w=majority";

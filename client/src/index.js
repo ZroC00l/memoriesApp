@@ -9,13 +9,16 @@ import { reducers } from "./reducers";
 import App from "./App";
 
 const container = document.getElementById("root");
-//const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 const root = createRoot(container);
 
 root.render(
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      {" "}
+      <App />
+    </Provider>
   </BrowserRouter>
 );
 
