@@ -1,4 +1,8 @@
+import express from "express";
+import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
+
+const router = express.Router();
 
 //Handlers for all our routes
 export const getPosts = async (req, res) => {
@@ -14,8 +18,14 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   //paramter to get our user info from the from
-  const post = req.body;
-  const newPost = new PostMessage(post);
+  const { title, message, selectedFile, creator, tags } = req.body;
+  const newPost = new PostMessage({
+    title,
+    message,
+    selectedFile,
+    creator,
+    tags,
+  });
 
   try {
     await newPost.save();
@@ -25,3 +35,5 @@ export const createPost = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
+export default router;

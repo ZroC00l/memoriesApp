@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
 
 import useStyles from "./styles";
+import { createPost } from "../../actions/posts";
 
 const Form = () => {
   const classes = useStyles();
@@ -14,13 +15,20 @@ const Form = () => {
     tags: "",
     selectedFile: "",
   });
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(createPost(postData));
+  };
+
   const clear = (e) => {};
+
   return (
     <Paper className={classes.paper}>
       <form
-        className={classes.form}
+        className={`${classes.root} ${classes.form}`}
         autoComplete="off"
         noValidate
         onSubmit={handleSubmit}
