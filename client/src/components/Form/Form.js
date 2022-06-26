@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
 
 import useStyles from "./styles";
-import { createPost } from "../../actions/posts";
+import { createPost, updatePost } from "../../actions/posts";
 
-const Form = () => {
+//Get current ID of post we are on
+
+const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
   const [postData, setPostData] = useState({
     creator: "",
@@ -16,14 +18,44 @@ const Form = () => {
     selectedFile: "",
   });
   const dispatch = useDispatch();
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((post) => post._id === currentId) : null
+  );
+
+  useEffect(() => {
+    if (post) {
+      setPostData({
+        creator: post.creator,
+        title: post.title,
+        message: post.message,
+        tags: post.tags,
+        selectedFile: post.image,
+      });
+    }
+  }, [post]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(createPost(postData));
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
+
+    window.location.reload();
   };
 
-  const clear = (e) => {};
+  const clear = (e) => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -33,7 +65,9 @@ const Form = () => {
         noValidate
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing a Memory" : "Creating a Memory"}
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
