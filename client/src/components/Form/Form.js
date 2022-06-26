@@ -9,7 +9,6 @@ import { createPost, updatePost } from "../../actions/posts";
 //Get current ID of post we are on
 
 const Form = ({ currentId, setCurrentId }) => {
-  const classes = useStyles();
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -17,10 +16,12 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   });
-  const dispatch = useDispatch();
+
   const post = useSelector((state) =>
     currentId ? state.posts.find((post) => post._id === currentId) : null
   );
+  const dispatch = useDispatch();
+  const classes = useStyles();
 
   useEffect(() => {
     if (post) {
@@ -34,20 +35,8 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   }, [post]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (currentId) {
-      dispatch(updatePost(currentId, postData));
-    } else {
-      dispatch(createPost(postData));
-    }
-
-    window.location.reload();
-  };
-
-  const clear = (e) => {
-    setCurrentId(null);
+  const clear = () => {
+    setCurrentId(0);
     setPostData({
       creator: "",
       title: "",
@@ -55,6 +44,20 @@ const Form = ({ currentId, setCurrentId }) => {
       tags: "",
       selectedFile: "",
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (currentId === 0) {
+      dispatch(createPost(postData));
+      clear();
+    } else {
+      dispatch(updatePost(currentId, postData));
+      clear();
+    }
+
+    //window.location.reload();
   };
 
   return (
