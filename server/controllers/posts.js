@@ -66,4 +66,16 @@ export const deletePost = async (req, res) => {
   res.json({ message: "Post successfully deleted" });
 };
 
+export const likedPost = async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with that id");
+
+  const post = PostMessage.findById(id);
+  await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 });
+
+  res.json({ message: "Post successfully liked" });
+};
+
 export default router;
