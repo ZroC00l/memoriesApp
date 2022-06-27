@@ -58,6 +58,7 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.root} ${classes.form}`}
         autoComplete="off"
         noValidate
+        autoCapitalize="on"
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">
