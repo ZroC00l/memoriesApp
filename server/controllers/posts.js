@@ -16,6 +16,18 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const postMessage = await PostMessage.findById(id);
+
+    res.status(200).json(postMessage);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const createPost = async (req, res) => {
   //paramter to get our user info from the from
   const { title, message, selectedFile, creator, tags } = req.body;
@@ -56,9 +68,9 @@ export const updatePost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
-  const { id: _id } = req.params;
+  const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
+  if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send("No post with that id");
 
   await PostMessage.findByIdAndRemove(id);
@@ -67,13 +79,17 @@ export const deletePost = async (req, res) => {
 };
 
 export const likedPost = async (req, res) => {
-  const { id: _id } = req.params;
+  const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
+  if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send("No post with that id");
 
   const post = PostMessage.findById(id);
-  await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 });
+  await PostMessage.findByIdAndUpdate(
+    id,
+    { likeCount: post.likeCount + 1 },
+    { new: true }
+  );
 
   res.json({ message: "Post successfully liked" });
 };

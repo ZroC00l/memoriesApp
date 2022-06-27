@@ -18,21 +18,13 @@ const Form = ({ currentId, setCurrentId }) => {
   });
 
   const post = useSelector((state) =>
-    currentId ? state.posts.find((post) => post._id === currentId) : null
+    currentId ? state.posts.find((message) => message._id === currentId) : null
   );
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    if (post) {
-      setPostData({
-        creator: post.creator,
-        title: post.title,
-        message: post.message,
-        tags: post.tags,
-        selectedFile: post.image,
-      });
-    }
+    if (post) setPostData(post);
   }, [post]);
 
   const clear = () => {

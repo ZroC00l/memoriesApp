@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -72,7 +73,11 @@ const Post = ({ post, setCurrentId }) => {
           Like
           {post.likeCount}
         </Button>
-        <Button size="small" color="primary" onClick={deletePost}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => dispatch(deletePost(post._id))}
+        >
           <DeleteIcon size="small" />
           Delete
         </Button>
