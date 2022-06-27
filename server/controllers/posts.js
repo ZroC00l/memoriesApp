@@ -78,7 +78,7 @@ export const deletePost = async (req, res) => {
   res.json({ message: "Post successfully deleted" });
 };
 
-export const likedPost = async (req, res) => {
+export const likePost = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id))
@@ -92,7 +92,6 @@ export const likedPost = async (req, res) => {
   );
 
   res.json(updatedPost);
-  //res.json({ message: "Post successfully liked" });
 };
 
 export default router;

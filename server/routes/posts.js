@@ -4,7 +4,7 @@ import {
   createPost,
   updatePost,
   deletePost,
-  likedPost,
+  likePost,
 } from "../controllers/posts.js";
 
 const router = express.Router();
@@ -14,6 +14,6 @@ router.post("/", createPost);
 //router.get("/:id", getPost);
 router.patch("/:id", updatePost); //patch is used for updating  existing documents,id parameter is dynamic, it allows for post identification
 router.delete("/:id", deletePost);
-router.patch("/:id/likedPost", likedPost);
+router.patch("/:id/likePost", likePost);
 
 export default router;
