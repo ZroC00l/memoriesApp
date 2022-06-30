@@ -9,6 +9,7 @@ export default makeStyles(() => ({
     justifyContent: "center",
     alignItems: "center",
   },
+
   heading: {
     color: "rgba(255,128,0)",
   },

@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import {
   getPosts,
   createPost,
+  getPost,
   updatePost,
   deletePost,
   likePost,
@@ -11,7 +12,7 @@ const router = express.Router();
 
 router.get("/", getPosts);
 router.post("/", createPost);
-//router.get("/:id", getPost);
+router.get("/:id", getPost);
 router.patch("/:id", updatePost); //patch is used for updating  existing documents,id parameter is dynamic, it allows for post identification
 router.delete("/:id", deletePost);
 router.patch("/:id/likePost", likePost);

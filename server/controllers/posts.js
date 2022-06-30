@@ -16,7 +16,7 @@ export const getPosts = async (req, res) => {
   }
 };
 
-/*export const getPost = async (req, res) => {
+export const getPost = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -26,7 +26,7 @@ export const getPosts = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
-};*/
+};
 
 export const createPost = async (req, res) => {
   //paramter to get our user info from the from
@@ -64,7 +64,7 @@ export const updatePost = async (req, res) => {
     }
   );
 
-  res.json(updatePost);
+  res.json(updatedPost);
 };
 
 export const deletePost = async (req, res) => {
