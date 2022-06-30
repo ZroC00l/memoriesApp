@@ -32,7 +32,7 @@ const App = () => {
       <Grow in>
         <Container>
           <Grid
-            direction="column-reverse"
+            className={classes.mainContainer}
             container
             justifyContent="space-between"
             alignItems="stretch"
