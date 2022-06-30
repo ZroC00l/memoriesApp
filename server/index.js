@@ -19,7 +19,7 @@ const CONNECTION_URL =
 const PORT = process.env.PORT || 5000;
 
 await mongoose
-  .connect(CONNECTION_URL, { family: 4 })
+  .connect(CONNECTION_URL)
   .then(() =>
     app.listen(PORT, () =>
       console.log(`Server is running on port:http://localhost:${PORT}`)
