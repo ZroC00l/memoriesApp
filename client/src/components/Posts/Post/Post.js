@@ -59,7 +59,12 @@ const Post = ({ post, setCurrentId }) => {
       </Typography>
       <CardContent>
         {" "}
-        <Typography variant="h5" gutterBottom>
+        <Typography
+          variant="body1"
+          color="textSecondary"
+          component="p"
+          gutterBottom
+        >
           {post.message}
         </Typography>
       </CardContent>
