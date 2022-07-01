@@ -16,6 +16,10 @@ app.use(cors());
 //express middelware to connect to application,set the starting path for routes
 app.use("/posts", postRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello to memories api");
+});
+
 //const CONNECTION_URL ="mongodb+srv://Thato:Thato123@cluster0.ku883.mongodb.net/?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
 
