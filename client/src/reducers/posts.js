@@ -20,7 +20,7 @@ export default (posts = [], action) => {
       );
 
     case DELETE:
-      return posts.filter((post) => post._id !== action.payload._id);
+      return posts.filter((post) => post._id !== action.payload);
 
     case LIKE:
       return posts.map((post) =>
