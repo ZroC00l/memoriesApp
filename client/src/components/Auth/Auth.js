@@ -5,7 +5,6 @@ import {
   Avatar,
   Grid,
   Paper,
-  TextField,
   Button,
 } from "@material-ui/core";
 import useStyles from "./styles";
@@ -30,7 +29,7 @@ const Auth = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Paper className={classes.paper} elevation="3">
+      <Paper className={classes.paper} elevation={3}>
         <Avatar className={classes.avatar}>
           <LockedOutlined />
         </Avatar>
@@ -41,7 +40,7 @@ const Auth = () => {
               <>
                 <Input
                   name="Firstname"
-                  lable="Firstname"
+                  label="Firstname"
                   handleChange={handleChange}
                   autoFocus
                   half
@@ -49,7 +48,7 @@ const Auth = () => {
 
                 <Input
                   name="Firstname"
-                  lable="Firstname"
+                  label="Firstname"
                   handleChange={handleChange}
                   half
                 />
@@ -57,13 +56,13 @@ const Auth = () => {
             )}
             <Input
               name="email"
-              lable="Email Address"
+              label="Email Address"
               handleChange={handleChange}
               type="email"
             />
             <Input
               name="password"
-              lable="Password"
+              label="Password"
               handleChange={handleChange}
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}

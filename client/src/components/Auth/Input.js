@@ -13,7 +13,7 @@ const Input = ({
   autoFocus,
 }) => {
   return (
-    <Grid type="item" xs={12} sm={half ? 6 : 12}>
+    <Grid type="item" xs={12} sm={half ? 6 : 12} item={true}>
       <TextField
         variant="outlined"
         name={name}
@@ -23,7 +23,7 @@ const Input = ({
         label={label}
         type={type}
         autoFocus={autoFocus}
-        inputProps={
+        InputProps={
           name === "password" && {
             endAdornment: (
               <InputAdornment position="end">
