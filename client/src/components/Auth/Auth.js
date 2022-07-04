@@ -7,9 +7,13 @@ import {
   Paper,
   Button,
 } from "@material-ui/core";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import Icon from "./icon";
 import useStyles from "./styles";
 import LockedOutlined from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
+
+import jwt_decode from "jwt-decode";
 
 const Auth = () => {
   const state = null;
@@ -29,6 +33,17 @@ const Auth = () => {
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
     handleShowPassword(false);
+  };
+
+  const googleSuccess = async (res) => {
+    var decodedToken = jwt_decode(res);
+
+    console.log("The decode Token:");
+    console.log(decodedToken);
+  };
+
+  const googleFailure = () => {
+    console.log("Google Sign In was unsuccessful. Try again later");
   };
 
   return (
@@ -80,6 +95,7 @@ const Auth = () => {
               />
             )}
           </Grid>
+
           <Button
             type="submit"
             variant="contained"
@@ -89,6 +105,32 @@ const Auth = () => {
           >
             {isSignup ? "Sign up" : "Sign in"}
           </Button>
+          <GoogleOAuthProvider clientId="1041367506713-j6gmrh6fonfovkcoft872ilhehugbmp3.apps.googleusercontent.com">
+            <Grid container justifyContent="center">
+              <GoogleLogin
+                render={(renderProps) => (
+                  <Button
+                    className={classes.googleButton}
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    disabled={renderProps.disabled}
+                    startIcon={<Icon />}
+                    onClick={renderProps.onClick}
+                  >
+                    Sign in with Google
+                  </Button>
+                )}
+                type="standard"
+                shape="circle"
+                size="large"
+                logo_alignment="center"
+                onSuccess={googleSuccess}
+                onFailure={googleFailure}
+                cookiePolicy="single_host_origin"
+              />
+            </Grid>
+          </GoogleOAuthProvider>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
