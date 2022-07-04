@@ -7,6 +7,7 @@ import {
   Paper,
   Button,
 } from "@material-ui/core";
+import { FcGoogle } from "react-icons/fc";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import Icon from "./icon";
 import useStyles from "./styles";
@@ -35,23 +36,18 @@ const Auth = () => {
     handleShowPassword(false);
   };
 
-  const googleSuccess = async (res) => {
-    var decodedToken = jwt_decode(res.credentials);
+  const googleSuccess = async (response) => {
+    var decodedToken = jwt_decode(response.credential);
 
     console.log("The decoded Token:");
     console.log(decodedToken);
 
     //localStorage for login credentials
-    localStorage.setItem("user", res.credentials);
+    localStorage.setItem("user", response.credential);
+
+    console.log("Login successful");
 
     //destructure the response props
-    const { name, picture, jti } = decodedToken;
-
-    const doc = {
-      name: name,
-      picture: picture,
-      jti: jti,
-    };
   };
 
   const googleFailure = () => {
@@ -118,7 +114,7 @@ const Auth = () => {
             {isSignup ? "Sign up" : "Sign in"}
           </Button>
           <GoogleOAuthProvider clientId="1041367506713-j6gmrh6fonfovkcoft872ilhehugbmp3.apps.googleusercontent.com">
-            <Grid container justifyContent="center" fullWidth={true}>
+            <Grid container justifyContent="center">
               <GoogleLogin
                 render={(renderProps) => (
                   <Button
@@ -130,10 +126,10 @@ const Auth = () => {
                     startIcon={<Icon />}
                     onClick={renderProps.onClick}
                   >
+                    <FcGoogle className="mr-4" />
                     Sign in with Google
                   </Button>
                 )}
-                fullWidth
                 shape="square"
                 size="large"
                 logo_alignment="center"
