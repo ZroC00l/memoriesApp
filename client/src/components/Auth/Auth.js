@@ -9,10 +9,11 @@ import {
 } from "@material-ui/core";
 import useStyles from "../../styles";
 import LockedOutlined from "@material-ui/icons/LockOutlined";
+import Input from "./Input";
 
 const Auth = () => {
   const state = null;
-  const isSignup = false;
+  const isSignup = true;
   const classes = useStyles();
 
   const handleSubmit = (e) => {
@@ -32,19 +33,19 @@ const Auth = () => {
           <Grid container spacing={2}>
             {isSignup && (
               <>
-                <TextField
+                <Input
                   name="Firstname"
                   lable="Firstname"
                   handleChange={handleChange}
                   autoFocus
-                  xs={6}
+                  half
                 />
-                <TextField
+
+                <Input
                   name="Firstname"
                   lable="Firstname"
                   handleChange={handleChange}
-                  autoFocus
-                  xs={6}
+                  half
                 />
               </>
             )}
