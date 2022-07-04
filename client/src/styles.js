@@ -6,7 +6,8 @@ export default makeStyles((theme) => ({
     margin: "30px 0",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    padding: "10px 50px",
     alignItems: "center",
   },
   [theme.breakpoints.down("sm")]: {
@@ -16,6 +17,8 @@ export default makeStyles((theme) => ({
   },
   heading: {
     color: "rgba(255,128,0)",
+    textDecoration: "none",
+    textDecorationLine: "none",
   },
   image: {
     marginLeft: "15px",
