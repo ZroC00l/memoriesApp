@@ -13,6 +13,7 @@ import Icon from "./icon";
 import useStyles from "./styles";
 import LockedOutlined from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
+import { useDispatch } from "react-redux";
 
 import jwt_decode from "jwt-decode";
 
@@ -21,6 +22,7 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,17 +39,31 @@ const Auth = () => {
   };
 
   const googleSuccess = async (response) => {
-    var decodedToken = jwt_decode(response.credential);
+    const encryptedResponse = response.credential;
+    const decodedToken = jwt_decode(response.credential);
+    const result = decodedToken;
+    const token = decodedToken.jti;
 
-    console.log("The decoded Token:");
-    console.log(decodedToken);
+    console.log("THE TOKEN BEFORE DECODING:");
+    console.log(encryptedResponse);
+
+    console.log("DECODED RESPONSE RESULT");
+    console.log(result);
+
+    console.log("TOKEN JTI");
+    console.log(token);
 
     //localStorage for login credentials
-    localStorage.setItem("user", response.credential);
+    //localStorage.setItem("user", response.credential);
 
     console.log("Login successful");
 
     //destructure the response props
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const googleFailure = () => {
