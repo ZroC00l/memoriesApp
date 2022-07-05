@@ -15,8 +15,17 @@ import useStyles from "./styles";
 import LockedOutlined from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
 import { useDispatch } from "react-redux";
+import { signup, signin } from "../../actions/auth";
 
 import jwt_decode from "jwt-decode";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const state = null;
@@ -24,13 +33,22 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit");
+    //console.log(formData);
+    if (isSignup) {
+      dispatch(signup(formData, navigate));
+    } else {
+      dispatch(signin(formData, navigate));
+    }
   };
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    //get each form field by name
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -82,16 +100,16 @@ const Auth = () => {
             {isSignup && (
               <>
                 <Input
-                  name="Firstname"
-                  label="Firstname"
+                  name="firstName"
+                  label="First Name"
                   handleChange={handleChange}
                   autoFocus
                   half
                 />
 
                 <Input
-                  name="Firstname"
-                  label="Firstname"
+                  name="lastName"
+                  label="Last Name"
                   handleChange={handleChange}
                   half
                 />
