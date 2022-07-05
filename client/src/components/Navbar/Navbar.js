@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { AppBar, Avatar, Toolbar, Typography, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import memories from "../../images/memories.png";
 import useStyles from "./styles";
 
 const Navbar = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   console.log(user);
+
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    localStorage.removeItem("profile");
+    setUser(null);
+    navigate("/");
+  };
 
   useEffect(() => {
     //check if token exists
@@ -55,6 +65,7 @@ const Navbar = () => {
               className={classes.logout}
               variant="contained"
               color="secondary"
+              onClick={logout}
             >
               Logout
             </Button>
