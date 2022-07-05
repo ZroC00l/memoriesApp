@@ -18,7 +18,6 @@ export default makeStyles((theme) => ({
   heading: {
     color: "rgba(255,128,0)",
     textDecoration: "none",
-    textDecorationLine: "none",
   },
   image: {
     marginLeft: "15px",

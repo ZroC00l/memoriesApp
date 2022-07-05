@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Typography,
   Container,
@@ -19,6 +20,7 @@ import jwt_decode from "jwt-decode";
 
 const Auth = () => {
   const state = null;
+  const navigate = useNavigate();
   const [isSignup, setIsSignup] = useState(false);
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
@@ -58,6 +60,7 @@ const Auth = () => {
     //destructure the response props
     try {
       dispatch({ type: "AUTH", data: { result, token } });
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
