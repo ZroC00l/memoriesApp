@@ -53,9 +53,6 @@ const Auth = () => {
     console.log("TOKEN JTI");
     console.log(token);
 
-    //localStorage for login credentials
-    //localStorage.setItem("user", response.credential);
-
     console.log("Login successful");
 
     //destructure the response props
