@@ -46,14 +46,14 @@ const Auth = () => {
     const result = decodedToken;
     const token = decodedToken.jti;
 
-    console.log("THE TOKEN BEFORE DECODING:");
+    /*console.log("THE TOKEN BEFORE DECODING:");
     console.log(encryptedResponse);
 
     console.log("DECODED RESPONSE RESULT");
     console.log(result);
 
     console.log("TOKEN JTI");
-    console.log(token);
+    console.log(token);*/
 
     console.log("Login successful");
 
