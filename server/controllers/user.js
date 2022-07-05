@@ -6,16 +6,30 @@ export const signin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const existingUer = await User.findOne({ email });
-    if (!existingUer) {
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
       return res.status(404).json({ message: "User not found" });
     }
     const isPasswordCorrect = await bcrypt.compare(
       password,
-      existingUer.password
+      existingUser.password
     );
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Incorrect login credentials" });
+    }
+    const token = jwt.sign(
+      {
+        email: existingUser.email,
+        id: existingUser._id,
+      },
+      process.env.TOKEN_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
+    return res.status(200).json(existingUser);
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
