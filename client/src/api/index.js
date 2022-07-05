@@ -12,13 +12,13 @@ export const deletePost = (id) => axios.delete(`${url}/${id}`);
 export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
 
 export const signin = () =>
-  axios.post("https://memory-silo.herokuapp.com/auth/signin", {
+  axios.post("http://localhost:3000/auth", {
     email: "",
     password: "",
   });
 
 export const signup = () =>
-  axios.post("https://memory-silo.herokuapp.com/auth/signup", {
+  axios.post("http://localhost:3000/auth", {
     firstName: "",
     lastName: "",
     email: "",

@@ -20,26 +20,42 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const { firstName, lastName, email, password, confirmPassword } = req.body;
-
+  const { firstName, lastName, email, password } = req.body;
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(409).json({ message: "User already exists" });
+    if (!(firstName && lastName && email && password)) {
+      return res.status(400).json({ message: "Please fill all fields" });
     }
-    if (password !== confirmPassword) {
-      return res.status(400).json({ message: "Passwords do not match" });
+    const oldUser = await User.findOne({ email });
+
+    if (oldUser) {
+      return res
+        .status(400)
+        .json({ message: "User already exists, please sign in" });
     }
-    const hashedPassword = await bcrypt.hash(password, 12);
+    //encrypt userpassword for new user
+    const encryptedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       firstName,
       lastName,
       email,
-      password: hashedPassword,
+      password: encryptedPassword,
     });
-    await newUser.save();
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
-    res.status(201).json({ token });
+
+    //create JWT token for new user
+    const token = jwt.sign(
+      {
+        id: newUser._id,
+        email: newUser.email,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+      },
+      process.env.TOKEN_KEY,
+      { expiresIn: "1h" }
+    );
+    //save new user to database
+    newUser.token = token;
+    //send token to client
+    res.status(201).json(newUser);
   } catch (error) {
     console.log(error);
   }
