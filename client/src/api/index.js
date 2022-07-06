@@ -15,17 +15,6 @@ export const deletePost = (id) => API.delete(`/posts/${id}`);
 
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 
-export const signin = () =>
-  axios.post("http://localhost:3000/auth", {
-    email: "",
-    password: "",
-  });
+export const signin = (formData) => API.post("/user/signin", formData);
 
-export const signup = () =>
-  axios.post("http://localhost:3000/auth", {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+export const signup = (formData) => API.post("/user/signup", formData);

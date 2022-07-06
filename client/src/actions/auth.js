@@ -3,8 +3,8 @@ import * as api from "../api/index";
 
 export const signup = (formData, navigate) => async (dispatch) => {
   try {
-    const result = await api.signup(formData);
-    dispatch({ type: AUTH, data: result });
+    const { data } = await api.signup(formData);
+    dispatch({ type: AUTH, data });
     navigate("/");
   } catch (err) {
     console.log(err);
@@ -13,9 +13,8 @@ export const signup = (formData, navigate) => async (dispatch) => {
 
 export const signin = (formData, navigate) => async (dispatch) => {
   try {
-    const response = await api.signin(formData);
-    const { result, token } = response.data;
-    dispatch({ type: AUTH, data: { result, token } });
+    const { data } = await api.signin(formData);
+    dispatch({ type: AUTH, data });
     navigate("/");
   } catch (error) {
     console.log(error);

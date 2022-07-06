@@ -40,9 +40,9 @@ export const signup = async (req, res) => {
   try {
     const oldUser = await User.findOne({ email });
 
-    if (!(firstName && lastName && email && password && confirmPassword)) {
+    /*if (!(firstName && lastName && email && password && confirmPassword)) {
       return res.status(400).json({ message: "Please fill all fields" });
-    }
+    }*/
     if (oldUser) {
       return res
         .status(400)
@@ -52,29 +52,24 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match" });
     }
     //encrypt userpassword for new user
-    const encryptedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({
-      firstName,
-      lastName,
+    const encryptedPassword = await bcrypt.hash(password, 12);
+    const result = await User.create({
       email,
       password: encryptedPassword,
+      name: `${firstName} ${lastName}`,
     });
 
     //create JWT token for new user
     const token = jwt.sign(
       {
-        id: newUser._id,
-        email: newUser.email,
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
+        email: result.email,
+        id: result._id,
       },
       process.env.TOKEN_KEY,
       { expiresIn: "1h" }
     );
-    //save new user to database
-    //newUser.token = token;
-    //send token to client
-    res.status(200).json({ newUser, token });
+
+    res.status(200).json({ result, token });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
