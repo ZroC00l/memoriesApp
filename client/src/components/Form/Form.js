@@ -49,18 +49,16 @@ const Form = ({ currentId, setCurrentId }) => {
       );
       clear();
     }
-    if (!user?.result?.name) {
-      return (
-        <Paper className={classes.paper}>
-          <Typography align="center" variant="h6">
-            Please sign in to post a memorable event.
-          </Typography>
-        </Paper>
-      );
-    }
-
-    //window.location.reload();
   };
+  if (!user?.result?.name) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography align="center" variant="h6">
+          Please sign in to post a memorable event.
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Paper className={classes.paper}>
