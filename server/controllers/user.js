@@ -8,7 +8,9 @@ export const signin = async (req, res) => {
   try {
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(404)
+        .json({ message: "User not found. Please sign up to get access" });
     }
     const isPasswordCorrect = await bcrypt.compare(
       password,
@@ -34,17 +36,20 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, confirmPassword } = req.body;
   try {
-    if (!(firstName && lastName && email && password)) {
-      return res.status(400).json({ message: "Please fill all fields" });
-    }
     const oldUser = await User.findOne({ email });
 
+    if (!(firstName && lastName && email && password && confirmPassword)) {
+      return res.status(400).json({ message: "Please fill all fields" });
+    }
     if (oldUser) {
       return res
         .status(400)
         .json({ message: "User already exists, please sign in" });
+    }
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
     }
     //encrypt userpassword for new user
     const encryptedPassword = await bcrypt.hash(password, 10);
