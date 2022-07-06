@@ -69,15 +69,34 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
   const { id } = req.params;
 
+  //check if user is authenticated before they can perform as specific action
+  if (!req.userId) {
+    return res
+      .status(401)
+      .json({ message: "You must be logged in to perform this action" });
+  }
+
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
 
   const post = PostMessage.findById(id);
-  const updatedPost = await PostMessage.findByIdAndUpdate(
-    id,
-    { $inc: { likeCount: 1 } },
-    { new: true }
-  );
+
+  /*check if user id is in the like section or not if the user already 
+  liked the post clicking on it negates the like action*/
+  const index = post.likes.findIndex((id) => id === String(req.userId));
+
+  //means the user has not liked the post yet so we add the user id to the likes section
+  if (index === -1) {
+    post.likes.push(req.userId);
+  } else {
+    //means the user has liked the post so we remove the user id from the likes section
+    //post.likes.splice(index, 1);
+    post.likes = post.likes.filter((id) => id !== String(req.userId));
+  }
+
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+    new: true,
+  });
 
   res.json(updatedPost);
 };
