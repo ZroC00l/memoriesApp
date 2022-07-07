@@ -4,6 +4,7 @@ import { AppBar, Avatar, Toolbar, Typography, Button } from "@material-ui/core";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import memories from "../../images/memories.png";
 import useStyles from "./styles";
+import decode from "jwt-decode";
 
 const Navbar = () => {
   const classes = useStyles();
@@ -18,6 +19,7 @@ const Navbar = () => {
 
     navigate("/");
     setUser(null);
+
     window.location.reload(true);
   };
 
@@ -25,7 +27,15 @@ const Navbar = () => {
     //check if token exists
     const token = user?.token;
 
-    //Later will add manual authentication JWT
+    console.log(token);
+
+    //sign out the user once their token expires
+    if (token) {
+      const decoded = decode(token);
+      if (decoded.exp * 1000 < new Date().getTime()) {
+        logout();
+      }
+    }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
