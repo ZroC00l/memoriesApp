@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { deepPurple } from "@material-ui/core/colors";
+import { capitalize } from "@material-ui/core";
 
 export default makeStyles((theme) => ({
   appBar: {
@@ -31,6 +32,8 @@ export default makeStyles((theme) => ({
   userName: {
     display: "flex",
     alignItems: "center",
+    marginRight: theme.spacing(5),
+    textTransform: "capitalize",
   },
   brandContainer: {
     display: "flex",
@@ -39,5 +42,6 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    marginLeft: theme.spacing(10),
   },
 }));
