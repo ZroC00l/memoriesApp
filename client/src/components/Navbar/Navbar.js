@@ -18,6 +18,7 @@ const Navbar = () => {
 
     navigate("/");
     setUser(null);
+    window.location.reload(true);
   };
 
   useEffect(() => {
