@@ -19,7 +19,7 @@ app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Hello to memories api");
+  res.send("Hello to memories api from the server");
 });
 
 const PORT = process.env.PORT || 5000;
