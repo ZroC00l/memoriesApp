@@ -20,6 +20,8 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const Likes = () => {};
+
   return (
     <Card className={classes.card}>
       <CardMedia

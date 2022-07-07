@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Container } from "@material-ui/core";
-import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
