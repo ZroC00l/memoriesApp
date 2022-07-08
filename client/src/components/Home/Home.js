@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Grow, Container } from "@material-ui/core";
-import useStyles from "../../styles";
+import { Grid, Grow, Container, Paper } from "@material-ui/core";
+import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 import Posts from "../Posts/Posts";
 import { getPosts } from "../../actions/posts";
 import Form from "../Form/Form";
+import Pagination from "../Pagination";
 
 const Home = () => {
   const classes = useStyles();
@@ -19,7 +20,7 @@ const Home = () => {
     <Grow in>
       <Container>
         <Grid
-          className={classes.mainContainer}
+          //className={classes.mainContainer}
           container
           justifyContent="space-between"
           alignItems="stretch"
@@ -30,6 +31,9 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
+            <Paper className={classes.pagination} elevation={6}>
+              <Pagination />
+            </Paper>
           </Grid>
         </Grid>
       </Container>
