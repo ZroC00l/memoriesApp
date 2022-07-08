@@ -43,6 +43,10 @@ const Home = () => {
     }
   };
 
+  const searchPost = () => {
+    navigate(`/posts/search?searchQuery=${search}`); //might need to change this line later
+  };
+
   const handleAdd = (tag) => setTags([...tags, tag]);
 
   const handleDelete = (tagToDelete) =>
@@ -73,7 +77,7 @@ const Home = () => {
                 label="Search Memories"
                 fullWidth
                 value={search}
-                onchange={(e) => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 onKeyPress={handleKeyPress}
               />
               <ChipInput
@@ -87,6 +91,14 @@ const Home = () => {
                 label="Search Tags"
                 variant="outlined"
               />
+              <Button
+                className={classes.searchButton}
+                color="primary"
+                variant="contained"
+                onClick={searchPost}
+              >
+                search
+              </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper className={classes.pagination} elevation={6}>

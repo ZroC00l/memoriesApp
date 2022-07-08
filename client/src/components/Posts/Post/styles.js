@@ -49,4 +49,8 @@ export default makeStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
   },
+  cardAction: {
+    textAlign: "initial",
+    display: "block",
+  },
 }));
