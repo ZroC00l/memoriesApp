@@ -40,6 +40,9 @@ const Home = () => {
     if (search.trim() || tags) {
       // tags.join(",") is for parsing an array in a url string
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+      navigate(
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
     } else {
       navigate("/");
     }
@@ -88,7 +91,7 @@ const Home = () => {
                 style={{
                   margin: "10px 0",
                 }}
-                type="text"
+                //type="text"
                 value={tags}
                 onAdd={handleAdd}
                 onDelete={handleDelete}

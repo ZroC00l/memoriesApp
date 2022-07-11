@@ -80,7 +80,7 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
-          {post.tags.map((tag) => `#${tag} `)}
+          {post.tags.map((tag) => `#${tag}`)}
         </Typography>
       </div>
       <Typography
