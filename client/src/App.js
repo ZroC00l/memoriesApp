@@ -1,16 +1,52 @@
-import React from "react";
-import { Container } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Container, Typography } from "@material-ui/core";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
 import PostDetails from "./components/PostDetails/PostDetails";
+import useStyles from "./styles";
+
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const App = () => {
+  const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const [isLoading, setIsLoading] = useState(true);
 
-  return (
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
+  return isLoading ? (
+    <>
+      {
+        <>
+          <div className={classes.splashLoader}>
+            <PacmanLoader
+              color={"#36D7B7"}
+              isLoading={isLoading}
+              size={50}
+              cssOverride={{
+                alignContent: "center",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            />
+          </div>
+          <div className={classes.splashText}>
+            <Typography variant="h4">
+              Loading the Application, please be patient while we get things
+              ready
+            </Typography>
+          </div>
+        </>
+      }
+    </>
+  ) : (
     <BrowserRouter>
       <Container maxWidth="xl">
         <Navbar />

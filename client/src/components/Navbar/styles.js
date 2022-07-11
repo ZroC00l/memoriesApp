@@ -50,7 +50,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     textAlign: "center",
-    //marginRight: theme.spacing(5),
+    marginLeft: theme.spacing(5),
     textTransform: "capitalize",
   },
   brandContainer: {
@@ -60,6 +60,7 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    margin: theme.spacing(2),
     //marginLeft: theme.spacing(10),
   },
 }));

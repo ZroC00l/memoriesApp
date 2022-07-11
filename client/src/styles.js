@@ -15,6 +15,18 @@ export default makeStyles((theme) => ({
       flexDirection: "column-reverse",
     },
   },
+  splashLoader: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "50vh",
+  },
+  splashText: {
+    fontSize: "0.5rem",
+    fontWeight: "600",
+    textDecoration: "none",
+    textAlign: "center",
+  },
   heading: {
     color: "rgba(255,128,0)",
     textDecoration: "none",
