@@ -30,14 +30,14 @@ const Home = () => {
   const query = useQuery();
   const navigate = useNavigate();
   const page = query.get("page") || 1;
-  const searchQuery = query.get("searchQuery ");
+  const searchQuery = query.get("searchQuery");
 
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
 
   const searchPost = () => {
-    if (search.trim()) {
+    if (search.trim() || tags) {
       // tags.join(",") is for parsing an array in a url string
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
     } else {

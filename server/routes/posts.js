@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import {
   getPosts,
+  getPostsBySearch,
   createPost,
   updatePost,
   deletePost,
@@ -9,6 +10,7 @@ import {
 import auth from "../middleware/auth.js";
 const router = express.Router();
 
+router.get("/search", getPostsBySearch);
 router.get("/", getPosts);
 router.post("/", auth, createPost);
 router.patch("/:id", auth, updatePost); //patch is used for updating  existing documents,id parameter is dynamic, it allows for post identification

@@ -16,6 +16,24 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPostsBySearch = async (req, res) => {
+  try {
+    const { searchQuery, tags } = req.query;
+
+    //convert the search term to regular expression to make it easy for mongo to search, the flag "i " means ignore letter case
+    const title = new RegExp(searchQuery, "i");
+
+    //search either by tags or title of post
+    const posts = await PostMessage.find({
+      $or: [{ title }, { tags: { $in: tags.split(",") } }],
+    });
+
+    res.json({ data: posts }); // since you are sending it to the front end using data property, you have to destructure it twice in the actions folder
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const createPost = async (req, res) => {
   //paramter to get our user info from the from
   const post = req.body;
