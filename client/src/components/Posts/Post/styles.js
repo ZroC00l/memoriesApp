@@ -37,8 +37,10 @@ export default makeStyles(() => ({
     display: "flex",
   },
   details: {
-    display: "flex",
-    justifyContent: "space-between",
+    //This will allow tags with extra long names to break to the next line in a div
+    display: "inline",
+    whiteSpace: "initial",
+    wordBreak: "break-all",
     margin: "20px",
   },
   title: {

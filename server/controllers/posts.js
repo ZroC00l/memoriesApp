@@ -6,11 +6,29 @@ const router = express.Router();
 
 //Handlers for all our routes
 export const getPosts = async (req, res) => {
+  const { page } = req.query;
   try {
-    const postMessages = await PostMessage.find();
+    //the number of posts per page to show
+    const LIMIT = 10;
+    //locate the start index of each and every page number
+    const startIndex = (Number(page) - 1) * LIMIT;
+    /*calculates the number of posts we have in total, this allows us to know the total number 
+    of pages we have to allow us to scroll it to the end if necessary*/
+    const total = await PostMessage.countDocuments({});
+
+    //get posts and sort by ID find all posts from the startIndex and limit to LIMIT
+    const postMessages = await PostMessage.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+
     console.log(postMessages);
 
-    res.status(200).json(postMessages);
+    res.status(200).json({
+      data: postMessages,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

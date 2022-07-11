@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { deepPurple } from "@material-ui/core/colors";
-import { capitalize } from "@material-ui/core";
 
 export default makeStyles((theme) => ({
   appBar: {
@@ -19,7 +18,7 @@ export default makeStyles((theme) => ({
     color: theme.palette.primary.main,
     textDecoration: "none",
     fontSize: "2rem",
-    fontWeight: "300",
+    fontWeight: "600",
   },
   image: {
     marginLeft: "10px",
