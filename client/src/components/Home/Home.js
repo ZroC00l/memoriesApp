@@ -13,7 +13,7 @@ import ChipInput from "material-ui-chip-input";
 import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 import Posts from "../Posts/Posts";
-import { getPosts } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Form from "../Form/Form";
 import Pagination from "../Pagination";
 
@@ -36,15 +36,19 @@ const Home = () => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
 
+  const searchPost = () => {
+    if (search.trim()) {
+      // tags.join(",") is for parsing an array in a url string
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+    } else {
+      navigate("/");
+    }
+  };
   const handleKeyPress = (e) => {
     //keycode 13 is the enter key
     if (e.keyCode === 13) {
-      //searchPost
+      searchPost();
     }
-  };
-
-  const searchPost = () => {
-    navigate(`/posts/search?searchQuery=${search}`); //might need to change this line later
   };
 
   const handleAdd = (tag) => setTags([...tags, tag]);
