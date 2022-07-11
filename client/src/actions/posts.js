@@ -4,7 +4,7 @@ import {
   UPDATE,
   DELETE,
   LIKE,
-} from "../contants/actionTypes";
+} from "../constants/actionTypes";
 import * as api from "../api/index"; // we import our http calls this way because we have a lot of methods exported from api
 
 //Now are action creators, these are functions that return actions
@@ -25,8 +25,8 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
       data: { data },
     } = await api.fetchPostsBySearch(searchQuery);
 
-    //dispatch({ type: FETCH_ALL, payload: data });
-    console.log(data);
+    dispatch({ type: FETCH_ALL, payload: data });
+    //console.log(data);
   } catch (error) {
     console.log(error.message);
   }

@@ -4,7 +4,7 @@ import {
   UPDATE,
   DELETE,
   LIKE,
-} from "../contants/actionTypes";
+} from "../constants/actionTypes";
 
 export default (posts = [], action) => {
   switch (action.type) {
