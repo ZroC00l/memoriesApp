@@ -7,6 +7,7 @@ import { getPosts } from "../actions/posts";
 
 const Paginate = ({ page }) => {
   const dispatch = useDispatch();
+  const { numberOfPages } = useSelector((state) => state.posts);
 
   useEffect(() => {
     //run this effect each time the page changes
@@ -18,13 +19,17 @@ const Paginate = ({ page }) => {
   const classes = useStyles();
   return (
     <Pagination
-      count={5}
-      page={1}
+      count={numberOfPages}
+      page={Number(page) || 1}
       variant="outlined"
       color="primary"
       classes={{ ul: classes.ul }}
       renderItem={(item) => (
-        <PaginationItem {...item} component={Link} to={`/posts?page=${1}`} />
+        <PaginationItem
+          {...item}
+          component={Link}
+          to={`/posts?page=${item.page}`}
+        />
       )}
     />
   );
