@@ -32,10 +32,6 @@ const Home = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
 
-  /*useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);*/
-
   const searchPost = () => {
     if (search.trim() || tags) {
       // tags.join(",") is for parsing an array in a url string
