@@ -13,22 +13,22 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 const App = () => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingSpinner, setIsLoadingSpinner] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
+      setIsLoadingSpinner(false);
     }, 5000);
   }, []);
 
-  return isLoading ? (
+  return isLoadingSpinner ? (
     <>
       {
         <>
           <div className={classes.splashLoader}>
             <PacmanLoader
               color={"#36D7B7"}
-              isLoading={isLoading}
+              isLoading={isLoadingSpinner}
               size={50}
               cssOverride={{
                 alignContent: "center",
