@@ -53,9 +53,8 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
 
-  const openPost = () => {
-    navigate(`/post/${post._id}`); // DYNAMIC ROUTE THIS POINTS TO POST DETAILS WHICH IS PARSERED IN APP.JS ROUTES
-  };
+  const openPost = () => navigate(`/posts/${post._id}`); // DYNAMIC ROUTE THIS POINTS TO POST DETAILS WHICH IS PARSERED IN APP.JS ROUTES
+
   return (
     <Card className={classes.card} raised elevation={6}>
       <ButtonBase onClick={openPost} className={classes.cardAction}>

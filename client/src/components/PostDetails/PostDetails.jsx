@@ -5,14 +5,17 @@ import {
   CircularProgress,
   Paper,
 } from "@material-ui/core";
-import useStyles from "./styles";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import testimage from "../../images/beach.jpeg";
 import moment from "moment";
 import { getPost } from "../../actions/posts";
 
+import useStyles from "./styles";
+
 const PostDetails = () => {
-  const { post, posts, isLoading } = useSelector((state) => state.posts);
+  const { post, posts, isloading } = useSelector((state) => state.posts);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -22,8 +25,21 @@ const PostDetails = () => {
     dispatch(getPost(id));
   }, [id]);
 
+  if (!post) return null;
+
+  if (isloading) {
+    return (
+      <Paper
+        style={{ padding: "20px", borderRadius: "15px" }}
+        elevation={6}
+        className={classes.loadingPaper}
+      >
+        <CircularProgress size="7em" />
+      </Paper>
+    );
+  }
   return (
-    <Paper style={{ padding: "20px", borderRadius: "15px" }}>
+    <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography variant="h3" component="h2">
@@ -35,13 +51,15 @@ const PostDetails = () => {
             color="textSecondary"
             component="h2"
           >
-            {post.tags.map((tag) => `#${tag}`)}
+            {post.tags.map((tag) => `#${tag} `)}
           </Typography>
           <Typography gutterBottom component="p" variant="body1">
             {post.message}
           </Typography>
           <Typography variant="h6">Created by: {post.name}</Typography>
-          <Typography variant="body1">{moment(post.createdAt)}</Typography>
+          <Typography variant="body1">
+            {moment(post.createdAt).fromNow()}
+          </Typography>
           <Divider style={{ margin: "20px 0" }} />
           <Typography variant="body1">
             <strong>Real time chat feature coming soon!</strong>
@@ -51,8 +69,8 @@ const PostDetails = () => {
         <div className={classes.imageSection}>
           <img
             className={classes.media}
-            src={post.selectedFile || "https://via.placeholder.com/300"}
-            alt={post.title}
+            src={post.selectedFile || testimage}
+            alt="user-post"
           />
         </div>
       </div>

@@ -7,20 +7,21 @@ import {
   UPDATE,
   DELETE,
   LIKE,
+  FETCH_POST,
 } from "../constants/actionTypes";
 
-export default (state = { isLoading: true, posts: [] }, action) => {
+export default (state = { isloading: true, posts: [] }, action) => {
   switch (action.type) {
     case START_LOADING:
       return {
         ...state,
-        isLoading: true,
+        isloading: true,
       };
 
     case END_LOADING: {
       return {
         ...state,
-        isLoading: false,
+        isloading: false,
       };
     }
     case FETCH_ALL:
@@ -30,6 +31,13 @@ export default (state = { isLoading: true, posts: [] }, action) => {
         currentPage: action.payload.currentPage,
         numberOfPages: action.payload.numberOfPages,
       };
+
+    case FETCH_POST:
+      return {
+        ...state,
+        post: action.payload,
+      };
+
     case FETCH_BY_SEARCH:
       return {
         ...state,
