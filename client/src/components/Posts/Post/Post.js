@@ -7,10 +7,12 @@ import {
   CardMedia,
   Button,
   Typography,
+  ButtonBase,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { useNavigate } from "react-router-dom";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 
@@ -20,6 +22,7 @@ import { useDispatch } from "react-redux";
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("profile"));
 
   const Likes = () => {
@@ -50,58 +53,63 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
 
+  const openPost = () => {
+    navigate(`/post/${post._id}`); // DYNAMIC ROUTE THIS POINTS TO POST DETAILS WHICH IS PARSERED IN APP.JS ROUTES
+  };
   return (
     <Card className={classes.card} raised elevation={6}>
-      <CardMedia
-        className={classes.media}
-        image={post.selectedFile}
-        title={post.title}
-      />
-      <div className={classes.overlay}>
-        <Typography variant="h6">{post.name}</Typography>
-        <Typography variant="body2" className="">
-          {moment(post.createdAt).fromNow()}
-        </Typography>
-      </div>
-      <div className={classes.overlay2} name="edit">
-        {(user?.result?.jti === post?.creator ||
-          user?.result?._id === post?.creator) && (
-          <Button
-            style={{ color: "white" }}
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation(); /// added to prevent click event from bubbling up to card
-              setCurrentId(post._id);
-            }}
-          >
-            <MoreHorizIcon fontSize="medium" />
-          </Button>
-        )}
-      </div>
-      <div className={classes.details}>
-        <Typography variant="body2" color="textSecondary">
-          {post.tags.map((tag) => `#${tag}`)}
-        </Typography>
-      </div>
-      <Typography
-        className={classes.title}
-        variant="h5"
-        component="h2"
-        gutterBottom
-      >
-        {post.title}
-      </Typography>
-      <CardContent>
-        {" "}
+      <ButtonBase onClick={openPost} className={classes.cardAction}>
+        <CardMedia
+          className={classes.media}
+          image={post.selectedFile}
+          title={post.title}
+        />
+        <div className={classes.overlay}>
+          <Typography variant="h6">{post.name}</Typography>
+          <Typography variant="body2" className="">
+            {moment(post.createdAt).fromNow()}
+          </Typography>
+        </div>
+        <div className={classes.overlay2} name="edit">
+          {(user?.result?.jti === post?.creator ||
+            user?.result?._id === post?.creator) && (
+            <Button
+              style={{ color: "white" }}
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation(); /// added to prevent click event from bubbling up to card
+                setCurrentId(post._id);
+              }}
+            >
+              <MoreHorizIcon fontSize="medium" />
+            </Button>
+          )}
+        </div>
+        <div className={classes.details}>
+          <Typography variant="body2" color="textSecondary">
+            {post.tags.map((tag) => `#${tag}`)}
+          </Typography>
+        </div>
         <Typography
-          variant="body1"
-          color="textSecondary"
-          component="p"
+          className={classes.title}
+          variant="h5"
+          component="h2"
           gutterBottom
         >
-          {post.message}
+          {post.title}
         </Typography>
-      </CardContent>
+        <CardContent>
+          {" "}
+          <Typography
+            variant="body1"
+            color="textSecondary"
+            component="p"
+            gutterBottom
+          >
+            {post.message}
+          </Typography>
+        </CardContent>
+      </ButtonBase>
       <CardActions className={classes.cardActions}>
         <Button
           size="small"

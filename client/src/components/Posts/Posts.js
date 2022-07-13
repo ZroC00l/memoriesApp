@@ -12,12 +12,8 @@ const Posts = ({ setCurrentId }) => {
 
   console.log(posts);
 
-  if (!posts.length) {
-    return (
-      <Grid container justify="center" alignItems="center">
-        <CircularProgress />
-      </Grid>
-    );
+  if (!posts.length && !isLoading) {
+    return "No Posts";
   }
 
   return isLoading ? (
