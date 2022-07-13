@@ -29,9 +29,9 @@ export const getPosts = (page) => async (dispatch) => {
 export const getPost = (id) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const { post } = await api.fetchPost(id);
+    const { data } = await api.fetchPost(id);
 
-    dispatch({ type: FETCH_POST, payload: post });
+    dispatch({ type: FETCH_POST, payload: data });
 
     dispatch({ type: END_LOADING });
   } catch (error) {
