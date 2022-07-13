@@ -65,6 +65,9 @@ const PostDetails = () => {
             <strong>Real time chat feature coming soon!</strong>
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
+          <Typography variant="body1">
+            <strong>Comment section coming soon!</strong>
+          </Typography>
         </div>
         <div className={classes.imageSection}>
           <img
@@ -72,6 +75,10 @@ const PostDetails = () => {
             src={post.selectedFile || testimage}
             alt="user-post"
           />
+          <div className={classes.PostLikesAndCommentsContainer}>
+            <Typography variant="h6">Likes : {post.likes.length}</Typography>
+            <Typography variant="h6">Comments</Typography>
+          </div>
         </div>
       </div>
     </Paper>

@@ -7,6 +7,9 @@ export default makeStyles((theme) => ({
     width: "100%",
     maxHeight: "600px",
   },
+  PostLikesAndCommentsContainer: {
+    textAlign: "center",
+  },
   card: {
     display: "flex",
     width: "100%",
