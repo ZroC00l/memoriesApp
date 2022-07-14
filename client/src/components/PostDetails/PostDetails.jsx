@@ -25,13 +25,14 @@ const PostDetails = () => {
     dispatch(getPost(id));
   }, [id]);
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (post) {
       dispatch(
         getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
       );
     }
-  }, [post]);*/
+    console.log("PROCESS EXECUTED");
+  }, []);
 
   if (!post) return null;
 
