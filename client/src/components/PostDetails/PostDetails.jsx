@@ -6,6 +6,7 @@ import {
   Paper,
 } from "@material-ui/core";
 
+import CommentSection from "./CommentSection";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import testimage from "../../images/beach.jpeg";
@@ -80,9 +81,8 @@ const PostDetails = () => {
             <strong>Real time chat feature coming soon!</strong>
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
-          <Typography variant="body1">
-            <strong>Comment section coming soon!</strong>
-          </Typography>
+          <CommentSection post={post} />
+          <Divider style={{ margin: "20px 0" }} />
         </div>
         <div className={classes.imageSection}>
           <img
