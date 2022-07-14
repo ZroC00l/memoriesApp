@@ -15,23 +15,23 @@ import { getPost, getPostsBySearch } from "../../actions/posts";
 import useStyles from "./styles";
 
 const PostDetails = () => {
-  const { post, posts, isloading } = useSelector((state) => state.posts);
+  const { posts, post, isloading } = useSelector((state) => state.posts);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const classes = useStyles();
   const { id } = useParams();
 
   useEffect(() => {
+    dispatch(getPost(id));
+  }, [id]);
+
+  /*useEffect(() => {
     if (post) {
       dispatch(
         getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
       );
     }
-  }, [post]);
-
-  useEffect(() => {
-    dispatch(getPost(id));
-  }, [id]);
+  }, [post]);*/
 
   if (!post) return null;
 
@@ -46,6 +46,13 @@ const PostDetails = () => {
       </Paper>
     );
   }
+
+  //return all recommended posts that share the same tag or name as the post you are currently viewing
+  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+
+  //On recommended section naviagte to the post clicked on
+  const openPost = (_id) => navigate(`/posts/${_id}`);
+
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <div className={classes.card}>
@@ -83,12 +90,41 @@ const PostDetails = () => {
             src={post.selectedFile || testimage}
             alt="user-post"
           />
-          <div className={classes.PostLikesAndCommentsContainer}>
-            <Typography variant="h6">Likes : {post.likes.length}</Typography>
-            <Typography variant="h6">Comments</Typography>
-          </div>
         </div>
       </div>
+      {recommendedPosts.length && (
+        <div className={classes.section}>
+          <Typography gutterBottom variant="h5">
+            Recommended Posts
+          </Typography>
+          <Divider />
+          <div className={classes.recommendedPosts}>
+            {recommendedPosts.map(
+              ({ title, name, message, likes, _id, selectedFile }) => (
+                <div
+                  style={{ margin: "20px", cursor: "pointer" }}
+                  onClick={() => openPost(_id)}
+                  key={_id}
+                >
+                  <Typography gutterBottom variant="h6">
+                    {title}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    {name}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    {message}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    Likes: {likes.length}
+                  </Typography>
+                  <img src={selectedFile} width="200px" alt={post.title} />
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      )}
     </Paper>
   );
 };
