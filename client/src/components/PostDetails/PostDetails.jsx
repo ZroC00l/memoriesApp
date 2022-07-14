@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import testimage from "../../images/beach.jpeg";
 import moment from "moment";
-import { getPost } from "../../actions/posts";
+import { getPost, getPostsBySearch } from "../../actions/posts";
 
 import useStyles from "./styles";
 
@@ -20,6 +20,14 @@ const PostDetails = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { id } = useParams();
+
+  useEffect(() => {
+    if (post) {
+      dispatch(
+        getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
+      );
+    }
+  }, [post]);
 
   useEffect(() => {
     dispatch(getPost(id));
