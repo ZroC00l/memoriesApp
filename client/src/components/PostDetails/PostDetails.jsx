@@ -31,7 +31,6 @@ const PostDetails = () => {
         getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
       );
     }
-    console.log("PROCESS EXECUTED");
   }, []);
 
   if (!post) return null;
