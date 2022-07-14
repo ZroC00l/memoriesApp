@@ -7,6 +7,9 @@ export default makeStyles((theme) => ({
     width: "100%",
     maxHeight: "600px",
   },
+  commentsOuterContainer: {},
+  commentsInnerContainer: {},
+  comment: {},
   PostLikesAndCommentsContainer: {
     textAlign: "center",
   },
