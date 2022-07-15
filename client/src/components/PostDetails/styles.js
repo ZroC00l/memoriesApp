@@ -5,14 +5,18 @@ export default makeStyles((theme) => ({
     borderRadius: "20px",
     objectFit: "cover",
     width: "100%",
-    maxHeight: "600px",
+    height: "100%",
   },
-  commentsOuterContainer: {},
-  commentsInnerContainer: {},
+  commentsOuterContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  commentsInnerContainer: {
+    height: "200px",
+    overflowY: "auto",
+    marginRight: "30px",
+  },
   comment: {},
-  PostLikesAndCommentsContainer: {
-    textAlign: "center",
-  },
   card: {
     display: "flex",
     width: "100%",
@@ -24,7 +28,6 @@ export default makeStyles((theme) => ({
   section: {
     borderRadius: "20px",
     margin: "10px",
-    flex: 1,
   },
   imageSection: {
     marginLeft: "20px",
