@@ -27,7 +27,7 @@ const App = () => {
         <>
           <div className={classes.splashLoader}>
             <PacmanLoader
-              color={"#36D7B7"}
+              color={"#FFFFF"}
               size={50}
               cssOverride={{
                 alignContent: "center",
