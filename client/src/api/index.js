@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://memories-silo.herokuapp.com/posts",
 });
 
 API.interceptors.request.use((req) => {
@@ -14,6 +14,7 @@ API.interceptors.request.use((req) => {
 });
 
 //https://memories-silo.herokuapp.com/
+//http://localhost:5000
 
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 export const fetchPost = (id) => API.get(`/posts/${id}`);
